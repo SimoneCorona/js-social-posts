@@ -97,18 +97,22 @@ posts.forEach(element => {
 
 
 let monthCurrent = new Date().getMonth();
-console.log ("Siamo nel mese di" + ' ' + monthCurrent );
+// console.log ("Siamo nel mese di" + ' ' + monthCurrent );
 
-let monthAgo = monthCurrent;
+const splitUserdate = posts.forEach((element) => {
+    element.created.split('-', 3);
+})
+
+// let monthAgo = monthCurrent - ;
 
 // **Milestone 3** - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 // Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 
-const userGiveLikes = document.getElementsByClassName("like-button");
+let userGiveLikes = document.getElementsByClassName("like-button");
 userGiveLikes.addEventListener("click", function(){
-    console.log(userGiveLikes);
+    console.log(userGiveLikes)
+    
 });
-
 // ****BONUS**
 //  1. Formattare le date in formato italiano (gg/mm/aaaa)
 //  2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Olga Demina > OD).
