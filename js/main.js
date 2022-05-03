@@ -82,37 +82,41 @@ posts.forEach(element => {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="${element.id}">
+                        <a class="like-button  js-like-button" data-postid="${element.id}">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${element.likes}</b> persone
+                        Piace a <b id="like-counter-${element.id}" class="js-likes-counter">${element.likes}</b> persone
                     </div>
                 </div> 
             </div>            
         </div>`
 });
 
-
-let monthCurrent = new Date().getMonth();
-// console.log ("Siamo nel mese di" + ' ' + monthCurrent );
-
-const splitUserdate = posts.forEach((element) => {
-    element.created.split('-', 3);
-})
-
-// let monthAgo = monthCurrent - ;
-
 // **Milestone 3** - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 // Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 
-let userGiveLikes = document.getElementsByClassName("like-button");
-userGiveLikes.addEventListener("click", function(){
-    console.log(userGiveLikes)
-    
+let buttons = document.querySelectorAll(".like-button");
+console.log(buttons);
+buttons.forEach(button => {
+    button.addEventListener('click', function() {
+        // BONUS 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
+        if (this.classList.contains("like-button--liked")) {
+            const id = button.getAttribute('data-postid');
+            let likes = document.querySelector('#like-counter-' + id).innerHTML;
+            document.querySelector('#like-counter-' + id).innerHTML = parseInt(likes) - 1;
+            this.classList.remove("like-button--liked")
+        } else {
+            const id = button.getAttribute('data-postid');
+            let likes = document.querySelector('#like-counter-' + id).innerHTML;
+            document.querySelector('#like-counter-' + id).innerHTML = parseInt(likes) + 1;
+            this.classList.add("like-button--liked")
+        }
+    })
 });
+
 // ****BONUS**
 //  1. Formattare le date in formato italiano (gg/mm/aaaa)
 //  2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Olga Demina > OD).
